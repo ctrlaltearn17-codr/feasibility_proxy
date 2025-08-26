@@ -18,7 +18,9 @@ app.get("/search", async (req, res) => {
     const q = req.query.q || "startup";
 
     // Forward request to SerpApi
-    const url = `https://serpapi.com/search.json?engine=${engine}&q=${encodeURIComponent(q)}&api_key=${API_KEY}`;
+    const url = `https://serpapi.com/search.json?engine=${engine}&q=${encodeURIComponent(q)}&location=${encodeURIComponent(location)}&api_key=${API_KEY}`;
+    console.log("Fetching URL:", url);
+   
 
     const response = await fetch(url); // ✅ built-in fetch in Node 18+
     const data = await response.json();
