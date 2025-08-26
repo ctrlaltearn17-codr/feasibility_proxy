@@ -1,5 +1,4 @@
 const express = require("express");
-const fetch = require("node-fetch");
 const cors = require("cors");
 
 const app = express();
@@ -21,7 +20,7 @@ app.get("/search", async (req, res) => {
     // Forward request to SerpApi
     const url = `https://serpapi.com/search.json?engine=${engine}&q=${encodeURIComponent(q)}&api_key=${API_KEY}`;
 
-    const response = await fetch(url);
+    const response = await fetch(url); // ✅ built-in fetch in Node 18+
     const data = await response.json();
 
     res.json(data);
@@ -33,6 +32,5 @@ app.get("/search", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Proxy running on port ${PORT}`));
-
 
  
