@@ -16,13 +16,13 @@ app.get("/search", async (req, res) => {
   try {
     const engine = req.query.engine || "google";
     const q = req.query.q || "startup";
+    const location = req.query.location || "South Africa"; // ✅ define it here
 
-    // Forward request to SerpApi
     const url = `https://serpapi.com/search.json?engine=${engine}&q=${encodeURIComponent(q)}&location=${encodeURIComponent(location)}&api_key=${API_KEY}`;
-    console.log("Fetching URL:", url);
-   
 
-    const response = await fetch(url); // ✅ built-in fetch in Node 18+
+    console.log("Fetching URL:", url); // ✅ debug log
+
+    const response = await fetch(url);
     const data = await response.json();
 
     res.json(data);
@@ -31,6 +31,7 @@ app.get("/search", async (req, res) => {
     res.status(500).json({ error: "Error fetching from SerpApi" });
   }
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Proxy running on port ${PORT}`));
